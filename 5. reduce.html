@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>함수형 프로그래밍</title>
+</head>
+
+<body>
+
+<script>
+
+
+var user = [
+    {id: 1, name: "QW", age: 30},
+    {id: 2, name: "ER", age: 29},
+    {id: 3, name: "TY", age: 33},
+    {id: 4, name: "YU", age: 20},
+    {id: 5, name: "AS", age: 32},
+    {id: 6, name: "QS", age: 35},
+    {id: 7, name: "QD", age: 23},
+    {id: 8, name: "QF", age: 25},
+    {id: 9, name: "QG", age: 39},
+]
+
+function _filter(list, predi) {
+    var new_list = []
+    for(var i = 0; i < list.length; i++) {
+        if(predi(list[i])) {
+            new_list.push(list[i])
+        }
+    }
+    return new_list
+}
+
+function _map(list, mapper){
+    var new_list = []
+    for(var i = 0; i < list.length; i++) {
+        new_list.push(mapper(list[i]))
+    }
+    return new_list
+}
+
+function _each(list, iter) {
+    for(var i = 0; i< list.length; i++){
+        iter(list[i])
+    }
+}
+
+function _curry(fn) {
+    return function(a, b) {
+        return arguments.length == 2 ? fn(a, b) : function(b) { return fn(a, b) }
+    }
+}
+
+function _curryr(fn) {
+    return function(a, b) {
+        return arguments.length == 2 ? fn(a, b) : function(b) { return fn(b, a) }
+    }
+}
+
+var _get = _curryr(function(obj, key) {
+    return obj == null ? undefined : obj[key]
+})
+
+var slice = Array.prototype.slice
+
+function _rest(list , num) {
+    return slice.call(list, num || 1)
+}
+
+function _reduce(list, iter, memo) {
+    if(arguments.length == 2) {
+        memo = list[0]
+        list = _rest(list)
+    }
+    _each(list, function(val){
+        memo = iter(memo, val)
+    })
+    return memo
+}
+
+var add = function(a, b) {
+    return a + b
+}
+
+console.log(
+    _reduce([1, 2, 3], add, 10)
+)
+
+console.log(
+    _reduce([1, 2, 3, 4], add)
+)
+
+
+
+</script>
+</body>
+
+</html>
