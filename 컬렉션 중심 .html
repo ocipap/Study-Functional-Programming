@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>::: 중간 정리 :::</title>
+  <script src="./_.js"></script>
+  <script>
+  var users = [
+    {id: 1, name: 'ID', age: 29},
+    {id: 2, name: 'QW', age: 30},
+    {id: 3, name: 'WE', age: 31},
+    {id: 4, name: 'ER', age: 32},
+    {id: 5, name: 'RT', age: 21},
+    {id: 6, name: 'DF', age: 28},
+    {id: 7, name: 'AS', age: 35},
+    {id: 8, name: 'IS', age: 25}
+  ]
+
+  console.log(
+    _reject(users, function(user) {
+      return user.age > 30
+    })
+  )
+
+  console.log(
+    _compact([0, 1, 2, null, {}, false, true])
+  )
+
+
+  </script>
+</head>
+<body>
+</body>
+</html>
