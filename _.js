@@ -113,8 +113,33 @@ var _nagate = (func) => {
 // compact
 var _compact = _filter(_identity)
 
-// reject
+// find
+var _find = _curryr((list, predi) => {
+  var keys = _keys(list)
+  for(var i = 0, len = keys.length ; i < len; i++) {
+    var val = list[keys[i]]
+    if(predi(val)) return val
+  }
+})
 
+// find index
+var _find_index = _curryr((list, predi) => {
+  var keys = _keys(list)
+  for(var i = 0, len = keys.length ; i < len; i++) {
+    if(predi(list[keys[i]])) return i
+  }
+  return -1
+})
+
+// some
+var _some = (data, predi) => {
+  return _find_index(data, predi || _identity) != -1
+}
+
+// every
+var _every = (data, predi) => {
+  return _find_index(data, _nagate(predi || _identity)) == -1
+}
 
 
 
