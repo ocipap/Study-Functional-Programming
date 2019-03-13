@@ -2,23 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>::: 중간 정리 :::</title>
   <script src="./_.js"></script>
-  <script>
-  var users = [
-    {id: 1, name: 'ID', age: 29},
-    {id: 2, name: 'QW', age: 30},
-    {id: 3, name: 'WE', age: 31},
-    {id: 4, name: 'ER', age: 32},
-    {id: 5, name: 'RT', age: 21},
-    {id: 6, name: 'DF', age: 28},
-    {id: 7, name: 'AS', age: 35},
-    {id: 8, name: 'IS', age: 25}
-  ]
-  </script>
 </head>
 <body>
+  <ul class="block">
+  </ul>
+  <script>
+    var users = [
+      {id: 1, name: 'ID', age: 29},
+      {id: 2, name: 'QW', age: 30},
+      {id: 3, name: 'WE', age: 30},
+      {id: 4, name: 'ER', age: 32},
+      {id: 5, name: 'RT', age: 21},
+      {id: 6, name: 'DF', age: 28},
+      {id: 7, name: 'AS', age: 35},
+      {id: 8, name: 'IS', age: 25},
+      {id: 9, name: 'DF', age: 10},
+      {id: 10, name: 'OP', age: 12},
+      {id: 11, name: 'GH', age: 39},
+      {id: 12, name: 'PA', age: 27},
+      {id: 13, name: 'KS', age: 26},
+    ]
+  
+    var block = document.querySelector(".block")
+    
+    _go(
+      users,
+      _count_by(user => user.age - user.age % 10),
+      _map((count, key) => {
+        return `<li>${key}대는 총 ${count}명 입니다.</li>`
+      }),
+      html => block.innerHTML = html 
+    )
+  </script>
 </body>
 </html>

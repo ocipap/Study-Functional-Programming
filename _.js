@@ -31,8 +31,8 @@ var _filter = _curryr((list, predi) => {
 // map
 var _map = _curryr((list, mapper) => {
   var new_list = []
-  _each(list, (val) => {
-    new_list.push(mapper(val))
+  _each(list, (val, key) => {
+    new_list.push(mapper(val, key))
   })
   return new_list
 })
@@ -54,7 +54,7 @@ var _length = _get("length")
 var _each = (list, iter) => {
   var keys = _keys(list)
   for(var i = 0, len = keys.length ; i < len; i++) {
-    iter(list[keys[i]])
+    iter(list[keys[i]], keys[i])
   }
 }
 
@@ -99,9 +99,9 @@ var _plunk = (data, key) => {
 }
 
 // reject
-var _reject = (data, predi) => {
+var _reject = _curryr((data, predi) => {
   return _filter(data, _nagate(predi))
-}
+})
 
 // nagate
 var _nagate = (func) => {
@@ -140,6 +140,60 @@ var _some = (data, predi) => {
 var _every = (data, predi) => {
   return _find_index(data, _nagate(predi || _identity)) == -1
 }
+
+// min
+var _min = (data) => {
+  return _reduce(data, (a, b) => {
+    return a < b ? a : b 
+  })
+}
+
+// max
+var _max = (data) => {
+  return _reduce(data, (a, b) => {
+    return a > b ? a : b 
+  })
+}
+
+// min_by
+var _min_by = _curryr((data, iter) => {
+  return _reduce(data, (a, b) => {
+    return iter(a) < iter(b) ? a : b 
+  })
+})
+
+// max_by
+var _max_by = _curryr((data, iter) => {
+  return _reduce(data, (a, b) => {
+    return iter(a) > iter(b) ? a : b 
+  })
+})
+
+// push
+var _push = (obj, key, val) => {
+  (obj[key] = obj[key] || []).push(val)
+  return obj
+}
+
+// group_by
+var _group_by = _curryr((data, iter) => {
+  return _reduce(data, (grouped, val) => {
+    return _push(grouped, iter(val), val)
+  } ,{})
+})
+
+// inc
+var _inc = (count, key) => {
+  count[key] ? count[key]++ : count[key] = 1
+  return count
+}
+
+// count_by
+var _count_by = _curryr((data, iter)=> {
+  return _reduce(data, (count, val) => {
+    return _inc(count, iter(val))
+  }, {})
+})
 
 
 
