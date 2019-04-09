@@ -1,0 +1,40 @@
+<script>const log = console.log</script>
+
+<script>
+    function *gen () {
+        yield 1
+        yield 2
+        yield 3
+        return 100
+    }
+
+    let iter = gen()
+    let iter2 = gen()
+    log(iter === iter[Symbol.iterator]())
+    for(const a of iter) log(a)
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+
+    console.clear()
+
+    function *infinity(i = 0) {
+        while(1) yield i++
+    }
+
+    function *limit(l, iter) {
+        for(const a of iter) {
+            yield a
+            if(a === l) return
+        }
+    }
+
+    function *even(l = 1) {
+        for (const a of limit(l, infinity(1))) {
+            if (!(a % 2)) yield a
+        }
+    }
+
+    for(const a of even(14)) log(a)
+
+</script>

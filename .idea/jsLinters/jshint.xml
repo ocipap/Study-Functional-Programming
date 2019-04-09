@@ -40,7 +40,7 @@
     <option mocha="false" />
     <option module="false" />
     <option mootools="false" />
-    <option moz="false" />
+    <option moz="true" />
     <option multistr="false" />
     <option newcap="false" />
     <option noarg="true" />
